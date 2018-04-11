@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>MrMood.Domain</RootNamespace>
+    <AssemblyName>MrMood.Domain</AssemblyName>
   </PropertyGroup>
 
 </Project>

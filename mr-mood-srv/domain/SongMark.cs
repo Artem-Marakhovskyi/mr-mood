@@ -1,10 +1,7 @@
-﻿using System;
-namespace MrMood.Domain
+﻿namespace MrMood.Domain
 {
-    public class SongMark
+    public class SongMark : Entity
     {
-        public int Id { get; set; }
-
         public int Energy { get; set; }
 
         public int Tempo { get; set; }

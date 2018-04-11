@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using MrMood.BussinessLogic;
+using MrMood.DataAccess;
+using MrMood.DataAccess.Context;
 
-namespace mr_mood
+namespace MrMood
 {
     public class Startup
     {
@@ -24,6 +22,19 @@ namespace mr_mood
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddDbContext<MoodContext>(
+                builder =>
+                {
+                    builder.UseSqlServer(
+                        Configuration.GetConnectionString("MoodDatabase"));
+                },
+                ServiceLifetime.Scoped);
+
+            services.AddTransient<RepositoryHolder, RepositoryHolder>();
+            services.AddTransient<MoodContext, MoodContext>();
+            services.AddTransient<SongUploadingService, SongUploadingService>();
+            services.AddTransient<ArtistsService, ArtistsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
