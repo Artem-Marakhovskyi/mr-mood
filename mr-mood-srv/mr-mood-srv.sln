@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrMood.Api", "mr-mood\MrMood.Api.csproj", "{A438B45B-279F-4EC1-AC65-3A257D8DF01D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrMood.Api", "mr-mood\MrMood.Api.csproj", "{A438B45B-279F-4EC1-AC65-3A257D8DF01D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrMood.Domain", "domain\MrMood.Domain.csproj", "{DFBEBBFF-A9B9-473E-AD88-960F4658B00A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrMood.Domain", "domain\MrMood.Domain.csproj", "{DFBEBBFF-A9B9-473E-AD88-960F4658B00A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MrMood.BussinessLogic", "BussinessLogic\MrMood.BussinessLogic.csproj", "{7119D853-73E5-4F53-A67C-8AE365347F15}"
 EndProject

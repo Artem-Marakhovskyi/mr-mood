@@ -12,7 +12,7 @@ namespace MrMood.DataAccess
             _context = context;
         }
 
-        public Task Save()
+        public Task SaveAsync()
         {
             return _context.SaveChangesAsync();
         }

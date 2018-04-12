@@ -43,6 +43,15 @@ namespace MrMood.DataAccess.Repositories
                .ToList();
         }
 
+        public IEnumerable<T> Get(int take, int skip)
+        {
+            return Set
+                .OrderBy(e => e.Id)
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+        }
+
         public void Insert(T item)
         {
             Set.Add(item);

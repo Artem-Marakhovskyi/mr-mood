@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MrMood.Dto
 {
@@ -17,8 +16,10 @@ namespace MrMood.Dto
 
         public IEnumerable<string> Tags { get; set; } = new List<string>();
 
-        public int Energy { get; set; }
+        public double MeanTempo { get; set; }
 
-        public int Tempo { get; set; }
+        public double MeanEnergy { get; set; }
+
+        public IEnumerable<SongMarkDto> SongMarks { get; set; }
     }
 }

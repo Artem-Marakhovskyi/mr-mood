@@ -24,6 +24,8 @@ namespace MrMood.DataAccess.Repositories
 
         IEnumerable<T> Get(Expression<Func<T, bool>> query);
 
+        IEnumerable<T> Get(int take, int skip);
+
         void Update(int id, T newItem);
     }
 }

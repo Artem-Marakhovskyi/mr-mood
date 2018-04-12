@@ -10,4 +10,7 @@
     <ProjectReference Include="..\MrMood.Dto\MrMood.Dto.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Calculations\" />
+  </ItemGroup>
 </Project>

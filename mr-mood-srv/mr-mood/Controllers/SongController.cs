@@ -21,19 +21,28 @@ namespace MrMood.Api.Controllers
         private const string UploadsFolder = "uploads";
 
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly SongUploadingService _songUploadingService;
+        private readonly SongsService _songsService
+;
 
         public SongController(
             IHostingEnvironment hostingEnvironment,
-            SongUploadingService songUploadingService)
+            SongsService songsService)
         {
             _hostingEnvironment = hostingEnvironment;
-            _songUploadingService = songUploadingService;
+            _songsService = songsService;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<JsonResult> Get(int id)
+        {
+            var song = await _songsService.GetAsync(id);
+
+            return new JsonResult(song);
         }
 
         // GET: api/Song
         [HttpPost]
-        public async Task<JsonResult> UploadFile(IFormFile file, SongDto songDto)
+        public async Task<JsonResult> Post(IFormFile file, SongDto songDto)
         {
             var guid = Guid.NewGuid().ToString();
             var filePath = Path.Combine(
@@ -43,8 +52,10 @@ namespace MrMood.Api.Controllers
 
             if (file.Length == 0)
             {
-                var result = new JsonResult("File length is zero");
-                result.StatusCode = (int)HttpStatusCode.BadRequest;
+                var jsonResult = new JsonResult("File length is zero");
+                jsonResult.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return jsonResult;
             }
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
@@ -52,7 +63,13 @@ namespace MrMood.Api.Controllers
             }
 
             songDto.FileName = guid;
-            await _songUploadingService.InsertAsync(songDto);
+            await _songsService
+.InsertAsync(songDto);
+
+            var result = new JsonResult("Success");
+            result.StatusCode = (int)HttpStatusCode.OK;
+
+            return result;
         }
 
 

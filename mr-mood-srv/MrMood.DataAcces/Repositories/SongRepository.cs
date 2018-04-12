@@ -18,6 +18,8 @@ namespace MrMood.DataAccess.Repositories
             song.Title = newItem.Title;
             song.FileName = newItem.FileName;
             song.Duration = newItem.Duration;
+            song.MeanTempo = newItem.MeanTempo;
+            song.MeanEnergy = newItem.MeanEnergy;
         }
     }
 

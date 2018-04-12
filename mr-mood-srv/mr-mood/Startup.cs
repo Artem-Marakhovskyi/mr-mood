@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MrMood.BussinessLogic;
+using MrMood.BussinessLogic.Calculations;
 using MrMood.DataAccess;
 using MrMood.DataAccess.Context;
 
@@ -31,10 +32,14 @@ namespace MrMood
                 },
                 ServiceLifetime.Scoped);
 
+            services.AddTransient<DbContext, MoodContext>();
             services.AddTransient<RepositoryHolder, RepositoryHolder>();
+            services.AddTransient<UnitOfWork, UnitOfWork>();
             services.AddTransient<MoodContext, MoodContext>();
-            services.AddTransient<SongUploadingService, SongUploadingService>();
+            services.AddTransient<SongsService, SongsService>();
             services.AddTransient<ArtistsService, ArtistsService>();
+            services.AddTransient<TagsService, TagsService>();
+            services.AddTransient<SongMarkCalculator, SongMarkCalculator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
