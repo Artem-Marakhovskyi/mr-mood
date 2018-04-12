@@ -39,6 +39,7 @@ namespace MrMood
             services.AddTransient<SongsService, SongsService>();
             services.AddTransient<ArtistsService, ArtistsService>();
             services.AddTransient<TagsService, TagsService>();
+            services.AddTransient<SongTagsService, SongTagsService>();
             services.AddTransient<SongMarkCalculator, SongMarkCalculator>();
         }
 

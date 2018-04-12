@@ -20,6 +20,6 @@ namespace MrMood.Domain
 
         public virtual List<SongMark> SongMarks { get; set; } = new List<SongMark>();
 
-        public virtual List<Tag> Tags { get; set; } = new List<Tag>();
+        public virtual List<SongTag> SongTags { get; set; } = new List<SongTag>();
     }
 }

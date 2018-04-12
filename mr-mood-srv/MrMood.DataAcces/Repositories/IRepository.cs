@@ -16,6 +16,8 @@ namespace MrMood.DataAccess.Repositories
 
         Task<T> Get(int id);
 
+        IEnumerable<T> Get();
+
         IEnumerable<T> Get<TKey>(
             Expression<Func<T, bool>> query,
             Expression<Func<T,TKey>> orderBy,

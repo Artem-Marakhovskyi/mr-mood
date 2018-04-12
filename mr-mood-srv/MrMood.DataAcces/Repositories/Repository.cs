@@ -17,10 +17,7 @@ namespace MrMood.DataAccess.Repositories
             Set = set;
         }
 
-        public Task<T> Get(int id)
-        {
-            return Set.FirstAsync(e => e.Id == id);
-        }
+        public Task<T> Get(int id) => Set.FirstAsync(e => e.Id == id);
         
         public IEnumerable<T> Get<TKey>(
             Expression<Func<T, bool>> query, 
@@ -52,20 +49,13 @@ namespace MrMood.DataAccess.Repositories
                 .ToList();
         }
 
-        public void Insert(T item)
-        {
-            Set.Add(item);
-        }
+        public IEnumerable<T> Get() => Set.ToList();
 
-        public void Remove(int id)
-        {
-            Set.Remove(Set.First(e => e.Id == id));
-        }
+        public void Insert(T item) => Set.Add(item);
 
-        public void Remove(T item)
-        {
-            Set.Remove(item);
-        }
+        public void Remove(int id) => Set.Remove(Set.First(e => e.Id == id));
+
+        public void Remove(T item) => Set.Remove(item);
 
         public abstract void Update(int id, T newItem);
     }

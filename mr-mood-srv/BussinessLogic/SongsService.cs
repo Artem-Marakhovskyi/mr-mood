@@ -16,22 +16,25 @@ namespace MrMood.BussinessLogic
         private readonly ArtistsService _artistsService;
         private readonly TagsService _tagsService;
         private readonly SongMarkCalculator _songMarkCalculator;
+        private readonly SongTagsService _songTagsService;
 
         public SongsService(
-            UnitOfWork uof, 
+            UnitOfWork uof,
             RepositoryHolder repositoryHolder,
             ArtistsService artistsService,
             TagsService tagsService,
-            SongMarkCalculator songMarkCalculator)
+            SongMarkCalculator songMarkCalculator,
+            SongTagsService songTagsService)
         {
             _uof = uof;
             _repositoryHolder = repositoryHolder;
             _artistsService = artistsService;
             _tagsService = tagsService;
             _songMarkCalculator = songMarkCalculator;
+            _songTagsService = songTagsService;
         }
 
-        public Task InsertAsync(SongDto songDto)
+        public async Task InsertAsync(SongDto songDto)
         {
             var song = new Song()
             {
@@ -39,9 +42,72 @@ namespace MrMood.BussinessLogic
                 FileName = songDto.FileName,
                 Title = songDto.SongTitle,
                 MeanTempo = songDto.MeanTempo,
-                MeanEnergy = songDto.MeanEnergy
+                MeanEnergy = songDto.MeanEnergy,
+                Artist = GetSongArtist(songDto),
+                SongMarks = new List<SongMark>()
+                {
+                    new SongMark()
+                    {
+                        Energy = Convert.ToInt32(songDto.MeanEnergy),
+                        Tempo = Convert.ToInt32(songDto.MeanTempo)
+                    }
+                }
             };
 
+            _repositoryHolder.SongRepository.Insert(song);
+
+            await _uof.SaveAsync();
+            await AddTags(song, songDto);
+
+        }
+
+        public async Task<SongDto> GetAsync(int songId)
+        {
+            return ToSongDto(await _repositoryHolder.SongRepository.Get(songId));
+        }
+
+        public IEnumerable<SongDto> Get(SongMarkDto searchMarkDto, int desiredSongs)
+        {
+            var songsSelected = new List<SongDto>();
+            var songDistance = new List<Tuple<Song, double>>();
+
+            var songs
+                = _repositoryHolder
+                .SongRepository
+                .Get();
+
+            foreach (var song in songs)
+            {
+                songDistance.Add(
+                    new Tuple<Song, double>(
+                        song,
+                        _songMarkCalculator
+                            .GetDistance(
+                                searchMarkDto,
+                                new SongMarkDto()
+                                {
+                                    Energy = song.MeanEnergy,
+                                    Tempo = song.MeanTempo
+                                }
+                            )
+                    )
+                );
+            }
+
+            return songDistance
+                .OrderBy(e => e.Item2)
+                .Take(desiredSongs)
+                .Select(e => ToSongDto(e.Item1));
+        }
+
+        private async Task AddTags(Song song, SongDto songDto)
+        {
+            var tags = await _tagsService.InsertNonExistingTags(songDto.Tags);
+            await _songTagsService.AddTagsToSong(song.Id, tags.Select(e => e.Id));
+        }
+
+        private Artist GetSongArtist(SongDto songDto)
+        {
             var artist = _artistsService.GetByTitle(songDto.ArtistTitle);
             if (artist == null)
             {
@@ -50,36 +116,8 @@ namespace MrMood.BussinessLogic
                     Title = songDto.ArtistTitle
                 };
             }
-            song.Artist = artist;
 
-            var tags = _tagsService.GetByTitles(songDto.Tags).ToList();
-            foreach(var nonExistingTagTitleInDatabase in 
-                    songDto.Tags.Except(tags.Select(e=>e.Title.ToLowerInvariant())))
-            {
-                tags.Add(new Tag()
-                {
-                    Title = nonExistingTagTitleInDatabase
-                });
-            }
-            song.Tags = tags;
-
-
-            song.SongMarks = new List<SongMark>()
-            {
-                new SongMark()
-                {
-                    Energy = Convert.ToInt32(songDto.MeanEnergy),
-                    Tempo = Convert.ToInt32(songDto.MeanTempo)
-                }
-            };
-
-            _repositoryHolder.SongRepository.Insert(song);
-            return _uof.SaveAsync();
-        }
-
-        public async Task<SongDto> GetAsync(int songId)
-        {
-            return ToSongDto(await _repositoryHolder.SongRepository.Get(songId));
+            return artist;
         }
 
         private SongDto ToSongDto(Song song)
@@ -91,7 +129,7 @@ namespace MrMood.BussinessLogic
                 FileName = song.FileName,
                 Duration = song.Duration,
                 ArtistTitle = song.Artist.Title,
-                Tags = song.Tags.Select(e => e.Title).ToList(),
+                Tags = _tagsService.GetBySongId(song.Id),
                 MeanTempo = song.MeanTempo,
                 MeanEnergy = song.MeanEnergy,
                 SongMarks = song.SongMarks.Select(

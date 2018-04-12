@@ -21,8 +21,7 @@ namespace MrMood.Api.Controllers
         private const string UploadsFolder = "uploads";
 
         private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly SongsService _songsService
-;
+        private readonly SongsService _songsService;
 
         public SongController(
             IHostingEnvironment hostingEnvironment,
@@ -38,6 +37,12 @@ namespace MrMood.Api.Controllers
             var song = await _songsService.GetAsync(id);
 
             return new JsonResult(song);
+        }
+
+        [HttpGet]
+        public JsonResult Get([FromQuery]int energy, [FromQuery]int tempo, [FromQuery]int desiredSongsCount)
+        {
+            return new JsonResult(_songsService.Get(new SongMarkDto() { Energy = energy, Tempo = tempo }, desiredSongsCount);
         }
 
         // GET: api/Song
@@ -63,8 +68,7 @@ namespace MrMood.Api.Controllers
             }
 
             songDto.FileName = guid;
-            await _songsService
-.InsertAsync(songDto);
+            await _songsService.InsertAsync(songDto);
 
             var result = new JsonResult("Success");
             result.StatusCode = (int)HttpStatusCode.OK;

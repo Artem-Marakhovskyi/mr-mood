@@ -6,6 +6,6 @@ namespace MrMood.Domain
     {
         public string Title { get; set; }
 
-        public virtual IEnumerable<Song> Songs { get; set; } = new List<Song>();
+        public virtual IEnumerable<SongTag> SongTags { get; set; } = new List<SongTag>();
     }
 }
