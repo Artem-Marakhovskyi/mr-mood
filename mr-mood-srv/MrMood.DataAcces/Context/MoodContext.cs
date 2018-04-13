@@ -8,6 +8,7 @@ namespace MrMood.DataAccess.Context
         public MoodContext(DbContextOptions options)
             : base(options)
         {
+            
         }
 
         public DbSet<Song> Songs { get; set; }
@@ -19,6 +20,11 @@ namespace MrMood.DataAccess.Context
         public DbSet<Tag> Tags { get; set; }
 
         public DbSet<SongTag> SongTags { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

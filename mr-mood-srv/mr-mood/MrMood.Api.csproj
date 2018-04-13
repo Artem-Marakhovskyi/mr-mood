@@ -27,6 +27,8 @@
   <ItemGroup>
     <ProjectReference Include="..\BussinessLogic\MrMood.BussinessLogic.csproj" />
     <ProjectReference Include="..\domain\MrMood.Domain.csproj" />
+    <ProjectReference Include="..\MrMood.DataAccess.Initializer\MrMood.DataAccess.Initializer.csproj" />
+    <ProjectReference Include="..\MrMood.DataAcces\MrMood.DataAccess.csproj" />
     <ProjectReference Include="..\MrMood.Dto\MrMood.Dto.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
-﻿using MrMood.DataAccess.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using MrMood.DataAccess.Context;
 using MrMood.DataAccess.Repositories;
 using MrMood.Domain;
 using System;

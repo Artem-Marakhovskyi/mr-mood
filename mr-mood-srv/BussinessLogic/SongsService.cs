@@ -63,7 +63,9 @@ namespace MrMood.BussinessLogic
 
         public async Task<SongDto> GetAsync(int songId)
         {
-            return ToSongDto(await _repositoryHolder.SongRepository.Get(songId));
+            var song = await _repositoryHolder.SongRepository.Get(songId);
+                
+            return song == null ? null : ToSongDto(song);
         }
 
         public IEnumerable<SongDto> Get(SongMarkDto searchMarkDto, int desiredSongs)

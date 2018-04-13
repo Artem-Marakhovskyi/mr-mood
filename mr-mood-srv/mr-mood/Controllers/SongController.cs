@@ -42,7 +42,14 @@ namespace MrMood.Api.Controllers
         [HttpGet]
         public JsonResult Get([FromQuery]int energy, [FromQuery]int tempo, [FromQuery]int desiredSongsCount)
         {
-            return new JsonResult(_songsService.Get(new SongMarkDto() { Energy = energy, Tempo = tempo }, desiredSongsCount);
+            return new JsonResult(
+                _songsService.Get(
+                    new SongMarkDto()
+                    {
+                        Energy = energy,
+                        Tempo = tempo
+                    }, 
+                    desiredSongsCount));
         }
 
         // GET: api/Song

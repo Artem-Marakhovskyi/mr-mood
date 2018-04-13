@@ -6,7 +6,7 @@ using MrMood.Dto;
 
 namespace MrMood.BussinessLogic.Calculations
 {
-    internal class SongMarkCalculator
+    public class SongMarkCalculator
     {
         internal SongMarkDto GetMeanSongMark(IEnumerable<SongMark> songMarks)
         {

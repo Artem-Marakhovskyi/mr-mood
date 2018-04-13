@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using MrMood.Domain;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,22 @@ namespace MrMood.DataAccess.Repositories
 {
     public abstract class Repository<T> : IRepository<T> where T : Entity
     {
-        protected DbSet<T> Set;
+        protected readonly DbSet<T> Set;
+        private readonly IQueryable<T> QueryableSet;
 
-        public Repository(DbSet<T> set)
+        protected Repository(DbSet<T> set)
         {
             Set = set;
+            QueryableSet = set;
         }
 
-        public Task<T> Get(int id) => Set.FirstAsync(e => e.Id == id);
+        protected Repository(DbSet<T> set, IQueryable<T> includableSet)
+        {
+            Set = set;
+            QueryableSet = includableSet;
+        }
+
+        public Task<T> Get(int id) => QueryableSet.FirstOrDefaultAsync(e => e.Id == id);
         
         public IEnumerable<T> Get<TKey>(
             Expression<Func<T, bool>> query, 
@@ -25,7 +34,7 @@ namespace MrMood.DataAccess.Repositories
             int skip,
             int take)
         {
-            return Set
+            return QueryableSet
                 .Where(query)
                 .OrderBy(orderBy)
                 .Skip(skip)
@@ -35,21 +44,21 @@ namespace MrMood.DataAccess.Repositories
 
         public IEnumerable<T> Get(Expression<Func<T, bool>> query)
         {
-            return Set
+            return QueryableSet
                .Where(query)
                .ToList();
         }
 
         public IEnumerable<T> Get(int take, int skip)
         {
-            return Set
+            return QueryableSet
                 .OrderBy(e => e.Id)
                 .Skip(skip)
                 .Take(take)
                 .ToList();
         }
 
-        public IEnumerable<T> Get() => Set.ToList();
+        public IEnumerable<T> Get() => QueryableSet.ToList();
 
         public void Insert(T item) => Set.Add(item);
 
