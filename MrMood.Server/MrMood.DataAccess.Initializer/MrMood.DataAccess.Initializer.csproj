@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MrMood.DataAccess\MrMood.DataAccess.csproj" />
+    <ProjectReference Include="..\MrMood.Domain\MrMood.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
