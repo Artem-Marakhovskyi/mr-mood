@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using MrMood.BussinessLogic.Calculations;
 using MrMood.DataAccess;
 using MrMood.Domain;
 using MrMood.Dto;

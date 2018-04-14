@@ -1,13 +1,13 @@
-﻿using System.Data.Entity;
-using System.Threading.Tasks;
+﻿using MrMood.DataAccess.Context;
+using System.Data.Entity;
 
 namespace MrMood.DataAccess
 {
     public class UnitOfWork
     {
-        private readonly DbContext _context;
+        private readonly MoodContext _context;
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(MoodContext context)
         {
             _context = context;
         }

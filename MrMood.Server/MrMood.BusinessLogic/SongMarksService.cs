@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
-using MrMood.BussinessLogic.Calculations;
 using MrMood.DataAccess;
 using MrMood.Domain;
 using MrMood.Dto;
@@ -33,20 +31,18 @@ namespace MrMood.BussinessLogic
                     Tempo = Convert.ToInt32(songMarkDto.Tempo),
                     Song = song
                 };
-            _repositoryHolder.SongMarkRepository.Insert(newSongMark);
-
-            RecalculateMeanForSong(song, newSongMark);
+            song.SongMarks.Add(newSongMark);
+            RecalculateMeanForSong(song);
 
             _repositoryHolder.SongRepository.Update(songMarkDto.SongId, song);
 
             _uof.Save();
         }
 
-        private void RecalculateMeanForSong(Song song, SongMark newSongMark)
+        private void RecalculateMeanForSong(Song song)
         {
-            var sourceSongMarks = new SongMark[song.SongMarks.Count + 1];
+            var sourceSongMarks = new SongMark[song.SongMarks.Count];
             song.SongMarks.CopyTo(sourceSongMarks, 0);
-            sourceSongMarks[sourceSongMarks.Length - 1] = newSongMark;
             var meanMarks = _songMarkCalculator.GetMeanSongMark(sourceSongMarks);
 
             song.MeanEnergy = meanMarks.Energy;

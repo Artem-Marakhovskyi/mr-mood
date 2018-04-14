@@ -1,12 +1,10 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using System.Web.Http;
+﻿using System.Web.Http;
 using MrMood.BussinessLogic;
 using MrMood.Dto;
 
 namespace MrMood.Api.Controllers
 {
-    [Route("api/marks")]
+    [RoutePrefix("api/marks")]
     public class SongMarkController : ApiController
     {
         private readonly SongMarksService _songMarksService;
@@ -18,9 +16,10 @@ namespace MrMood.Api.Controllers
         }
 
         [HttpPost]
-        public string Post([FromBody]SongMarkDto songDto)
+        [Route("")]
+        public string Post([FromUri] SongMarkDto songMarkDto)
         {
-            _songMarksService.Insert(songDto);
+            _songMarksService.Insert(songMarkDto);
 
             return "Successfully inserted";
         }

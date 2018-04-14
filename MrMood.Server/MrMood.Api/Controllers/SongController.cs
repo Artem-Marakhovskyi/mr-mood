@@ -10,7 +10,7 @@ using MrMood.Dto;
 
 namespace MrMood.Api.Controllers
 {
-    [Route("api/songs")]
+    [RoutePrefix("api/songs")]
     public class SongController : ApiController
     {
         private const string MultipartContentType = "multipart/form-data";
@@ -34,6 +34,7 @@ namespace MrMood.Api.Controllers
         }
 
         [HttpGet]
+        [Route("{energy}/{tempo}/{desiredSongsCount}")]
         public IHttpActionResult Get([FromUri]int energy, [FromUri]int tempo, [FromUri]int desiredSongsCount)
         {
             return Json(

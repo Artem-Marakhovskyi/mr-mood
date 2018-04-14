@@ -4,7 +4,7 @@ using System.Linq;
 using MrMood.Domain;
 using MrMood.Dto;
 
-namespace MrMood.BussinessLogic.Calculations
+namespace MrMood.BussinessLogic
 {
     public class SongMarkCalculator
     {

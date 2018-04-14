@@ -5,8 +5,8 @@ namespace MrMood.DataAccess.Context
 {
     public class MoodContext : DbContext
     {
-        public MoodContext(string connString)
-            : base(connString)
+        public MoodContext(DbContextOptions options)
+            : base(options.ConnString)
         {
             
         }

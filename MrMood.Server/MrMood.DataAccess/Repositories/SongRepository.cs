@@ -15,13 +15,15 @@ namespace MrMood.DataAccess.Repositories
 
         public override void Update(int id, Song newItem)
         {
-            var song = Set.First(e => e.Id == id);
+            var song = Set.Where(e => e.Id == id).First();
 
             song.Title = newItem.Title;
             song.FileName = newItem.FileName;
             song.Duration = newItem.Duration;
             song.MeanTempo = newItem.MeanTempo;
             song.MeanEnergy = newItem.MeanEnergy;
+            
+            
         }
     }
 
