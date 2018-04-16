@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Modal } from 'ngx-modialog/plugins/bootstrap';
 import { User, UserService } from '../../core';
+import { SheetService } from '../../core/services/sheet.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout-header',
@@ -8,16 +11,19 @@ import { User, UserService } from '../../core';
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    private userService: UserService
+    private router : Router
   ) {}
 
-  currentUser: User;
-
   ngOnInit() {
-    this.userService.currentUser.subscribe(
-      (userData) => {
-        this.currentUser = userData;
-      }
-    );
+    
   }
+
+  search() {
+    this.router.navigate(['/sheet']);
+  }
+
+  upload() {
+    this.router.navigate(['/upload']); 
+  }
+
 }

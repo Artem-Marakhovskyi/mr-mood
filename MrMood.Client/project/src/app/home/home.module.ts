@@ -5,6 +5,7 @@ import { HomeComponent } from './home.component';
 import { HomeAuthResolver } from './home-auth-resolver.service';
 import { SharedModule } from '../shared';
 import { HomeRoutingModule } from './home-routing.module';
+import { UploadComponent } from '../upload/upload.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { HomeRoutingModule } from './home-routing.module';
     HomeRoutingModule
   ],
   declarations: [
-    HomeComponent
+    HomeComponent,
+    UploadComponent
   ],
   providers: [
     HomeAuthResolver

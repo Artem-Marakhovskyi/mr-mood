@@ -1,0 +1,21 @@
+<div class="container">
+        <h1>Hero Form</h1>
+        <form>
+          <div class="form-group">
+            <label for="songTitle">Track title</label>
+            <input type="text" class="form-control" id="songTitle" required [(ngModel)]="model.songTitle">
+          </div>
+    
+          <div class="form-group">
+            <label for="artistTitle">Artist title</label>
+            <input type="text" class="form-control" id="artistTitle" required [(ngModel)]="model.artistTitle">
+          </div>
+
+          <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".mp3">
+
+          <sheet></sheet>>
+
+          <button type="submit" class="btn btn-success" (click)="uploadTrack()">Upload track</button>
+    
+        </form>
+    </div>
