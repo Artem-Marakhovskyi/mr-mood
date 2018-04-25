@@ -13,12 +13,14 @@ import { CoreModule } from './core/core.module';
 import { BootstrapModalModule } from 'ngx-modialog/plugins/bootstrap';
 import { SheetService } from './core/services/sheet.service';
 import { SheetComponent } from './sheet/sheet.component';
-import { SheetRoutingModule } from './sheet/sheet-routing.module';
+
 import { SongService } from './core/services/song.service';
 import { FormsModule } from '@angular/forms';
+import { SearchRoutingModule } from './search/search-routing.module';
+import { SearchModule } from './search/search.module';
 
 @NgModule({
-  declarations: [AppComponent, FooterComponent, HeaderComponent, SheetComponent],
+  declarations: [AppComponent, FooterComponent, HeaderComponent],
   imports: [
     BrowserModule,
     CoreModule,
@@ -28,7 +30,8 @@ import { FormsModule } from '@angular/forms';
     ModalModule.forRoot(),
     BootstrapModalModule,
     AppRoutingModule,
-    SheetRoutingModule
+    SearchRoutingModule,
+    SearchModule
   ],
   providers: [
     SheetService, SongService],

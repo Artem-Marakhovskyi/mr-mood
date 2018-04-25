@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://localhost:1483/'
+  api_url: 'https://conduit.productionready.io/api'
+  /*api_url: 'http://localhost:1483/'*/
 };

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { JwtService } from './jwt.service';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError } from 'rxjs/operators/catchError';
+import { ControlContainer } from '@angular/forms';
 
 @Injectable()
 export class ApiService {
@@ -20,6 +21,11 @@ export class ApiService {
 
   get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
     return this.http.get(`${environment.api_url}${path}`, { params })
+      .pipe(catchError(this.formatErrors));
+  }
+
+  getWithPath(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+    return this.http.get(path, { params })
       .pipe(catchError(this.formatErrors));
   }
 

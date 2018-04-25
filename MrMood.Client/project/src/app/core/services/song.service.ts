@@ -10,10 +10,19 @@ export class SongService {
   constructor (
     private apiService: ApiService
   ) {}
+  
+  getAll() {
+    var response = this.apiService.getWithPath('http://localhost:1483/api/songs/1');
 
-  getAll(): Song[] {
-    
-      return [new Song('t', 12, 31, 1,'artist', 322, 'filename', ['123'])];
+    response.subscribe(e =>{console.log(e.response);})
+
+    return [];
+  }
+
+  getById(id : number): Song[] {
+      return [];
+      //return this.apiService.get('/api/songs/'+ id);
+      
     // return this.apiService.get('/tags')
     //       .pipe(map(data => data.tags));
   }

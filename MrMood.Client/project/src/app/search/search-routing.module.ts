@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SheetComponent } from './sheet.component';
+import { SheetComponent } from '../sheet/sheet.component';
+
 
 const routes: Routes = [
   {
@@ -13,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SheetRoutingModule {}
+export class SearchRoutingModule {}

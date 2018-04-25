@@ -1,0 +1,21 @@
+.tempo {
+    left: 50%;
+    margin-left: 240px;
+    top: 48%;
+    position: absolute;
+}
+
+.energy {
+    left: 51%;
+    margin-top: 15px;
+    position: absolute;
+}
+
+canvas {
+    margin: 0 auto;
+    display: block;
+}
+
+div {
+    text-align: center;
+}

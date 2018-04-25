@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { SheetService } from '../core/services/sheet.service';
 import { SongService } from '../core/services/song.service';
@@ -18,7 +18,7 @@ export class SheetComponent implements OnInit {
     private sheetService : SheetService,
     private songService : SongService
   ) {}
-
+  @Input()
   public selectedSong : string;
   public static instance : SheetComponent;
   ngOnInit() {
